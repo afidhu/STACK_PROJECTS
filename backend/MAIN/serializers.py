@@ -32,7 +32,7 @@ class AllCourseSerializer(serializers.ModelSerializer):
 class CourseSerializer(serializers.ModelSerializer):
     class Meta:
         model =Course
-        fields= ["id","category","teacher", "title","description","tech","image", "course_chapter","tech_lists","total_enroll"]
+        fields= ["id","category","teacher", "title","description","tech","image", "course_chapter","tech_lists","total_enroll","course_rating"]
         depth=1
 
         

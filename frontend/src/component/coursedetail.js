@@ -13,6 +13,7 @@ const Coursedetail = () => {
     const [courseChapter, setCourseChapter] = useState([])
     const [courseTeacher, setCourseTecher] = useState('')
     const [coursetech_list, setCoursetech_list] = useState([])
+    const [ratingAvg, setratingAvg] = useState([])
     // const[courserelatedVideo, setcourserelatedVideo]=useState([])
     // console.log(courserelatedVideo)
     const [userLogin, setuserLogin] = useState('')
@@ -27,6 +28,7 @@ const Coursedetail = () => {
                 setCourseChapter(resp.data.course_chapter)
                 setCourseTecher(resp.data.teacher)
                 setCoursetech_list(resp.data.tech_lists)
+                setratingAvg(resp.data.total_enroll)
                 // setcourserelatedVideo(JSON.parse(resp.data.relatedvideo))
 
             })
@@ -105,10 +107,12 @@ const Coursedetail = () => {
         axios.post('http://127.0.0.1:8000/courseratingView/', formRate)
             .then((resp) => {
                 console.log(resp.data)
+                window.location.reload()
             })
             .catch((err) => {
                 console.log("there is error At: " + err)
             })
+
     }
 
     return (
@@ -137,7 +141,7 @@ const Coursedetail = () => {
                                         <li><h4>cousrse by <Link to={'/teacherdetail/' + courseTeacher.id}>{courseTeacher.full_name}</Link></h4> </li>
                                         <li><h4>Durations 3 HRS 30 mis</h4></li>
                                         <li><h4>Total Enrilled: {coursedata.total_enroll} Students</h4></li>
-                                        <li><h6>Rating 4.6/2</h6></li>
+                                        <li><h6>Rating avg: [{ratingAvg}] </h6></li>
                                         <button className='btn btn-success' data-bs-toggle="modal" data-bs-target="#ratingmodel"> Rating </button><br /><p></p>
 
                                         {/* This is model of rating */}

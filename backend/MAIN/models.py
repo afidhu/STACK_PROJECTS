@@ -43,6 +43,10 @@ class Course(models.Model):
     description=models.TextField()
     tech=models.TextField()
     image =models.ImageField(upload_to='image/')
+    
+    def course_rating(self):
+        total_rate=CourseRating.objects.filter(course=self).aggregate(models.Avg('rating'))
+        return total_rate
 
     def __str__(self):
         return self.title
