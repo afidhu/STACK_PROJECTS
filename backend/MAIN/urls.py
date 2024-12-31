@@ -1,7 +1,7 @@
 from django.conf import settings
 from django.urls import path
 
-from.views import TeacherViewList, TeacherDetail, CategoryViewList, AddCourseList,TeacherCourseList, ChapterLIstview, ChapterperCourseLIstview,AllCourseList,StudentViewRegisterList, CourseListView, StudentEnrollCourse,courseEnrollmentCourseLIstview, Student_login
+from.views import TeacherViewList, CourseRatingView,TeacherDetail, CategoryViewList, AddCourseList,TeacherCourseList, ChapterLIstview, ChapterperCourseLIstview,AllCourseList,StudentViewRegisterList, CourseListView, StudentEnrollCourse,courseEnrollmentCourseLIstview, Student_login
 from.import views
 
 urlpatterns = [
@@ -18,6 +18,11 @@ urlpatterns = [
     # path('techCourseView/<slug:techs>/', TechCourseView.as_view()),
     
     path('teachercourse/<int:teacher_id>/', TeacherCourseList.as_view()),
+    
+    
+    # Rating
+    path('courseratingView/', CourseRatingView.as_view()),
+    
     
     # STUDENT REGISTER
     path('studentLogin/', views.Student_login),

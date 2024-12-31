@@ -1,10 +1,10 @@
 from django.shortcuts import render
-from.serializers import TeacherSerializer, CategorySerializer, AddCourseSerializer, AddChapterSerializer, AllCourseSerializer,StudentSerializer, CourseSerializer, StudentCourseEnrollmentSerilizer
+from.serializers import TeacherSerializer, CategorySerializer, CourseRatingSerializer, AddCourseSerializer, AddChapterSerializer, AllCourseSerializer,StudentSerializer, CourseSerializer, StudentCourseEnrollmentSerilizer
 from rest_framework import generics, viewsets
 from rest_framework import permissions
 from rest_framework.response import Response
 from rest_framework.views import APIView
-from.models import Teacher, CourseCategory, Course, Addchapter, Student, StudentCourseEnrollment
+from.models import Teacher, CourseCategory, CourseRating, Course, Addchapter, Student, StudentCourseEnrollment
 
 # Create your views here.
 # here full teacher register
@@ -82,7 +82,7 @@ class ChapterperCourseLIstview(generics.ListAPIView):
   
   
   
-#   STUDENT REGISTERATION
+# STUDENT REGISTERATION
 class StudentViewRegisterList(generics.ListCreateAPIView):
     queryset=Student.objects.all()
     serializer_class=StudentSerializer
@@ -94,6 +94,8 @@ class StudentEnrollCourse(generics.ListCreateAPIView):
     queryset=StudentCourseEnrollment.objects.all()
     serializer_class=StudentCourseEnrollmentSerilizer
   
+ 
+ 
   
 from django.shortcuts import get_object_or_404
     
@@ -117,6 +119,18 @@ class courseEnrollmentCourseLIstview(generics.ListAPIView):
         course=Course.objects.get(pk=course_id)
         return StudentCourseEnrollment.objects.filter(course=course)
   
+  
+  
+
+#  course rating
+class CourseRatingView(generics.ListCreateAPIView):
+    queryset =CourseRating.objects.all()
+    serializer_class =CourseRatingSerializer
+
+    # def get_queryset(self):
+    #     courseId=self.kwargs['course_id']
+    #     course=Course.objects.get(pk=courseId)
+    #     return CourseRating.objects.filter(course=course)
   
     
 # here full teacher login
