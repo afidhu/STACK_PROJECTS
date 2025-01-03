@@ -10,14 +10,28 @@ class Teacher(models.Model):
     qualification=models.CharField(max_length=100)
     phone=models.IntegerField()
     skills=models.CharField(max_length=100)
+    # verify_status=models.BooleanField(default=False)
+    # otp_digit=models.CharField(max_length=20, null=True)
+    # login_via_otp=models.BooleanField(default=False)
     
     def __str__(self):
         return self.full_name 
     
+    # THOSE FUNCTION FIELTER ALL DATA ACCORDING TO PERTICULAR TEACHER, IF NOT CAN USER WITHOUT FILTER METHOD
     def teacher_skills(self):
         all_skill=self.skills.split(',')
         return all_skill
     
+    def total_course(self):
+        total=Course.objects.filter(teacher=self).count()
+        return total
+    def total_student(self):
+        total=Student.objects.all().count()
+        return total
+    
+    def studentEnroll(self):
+        total=StudentCourseEnrollment.objects.filter(course__teacher=self).count()
+        return total
     class Meta:
         verbose_name = 'Tearcher'
         verbose_name_plural = '1.Tearchers'
@@ -84,6 +98,9 @@ class Student(models.Model):
     password=models.CharField(max_length=100)
     username=models.CharField(max_length=100)
     interest=models.TextField()
+    # verify_status=models.BooleanField(default=False)
+    # otp_digit=models.CharField(max_length=20, null=True)
+    # login_via_otp=models.BooleanField(default=False)
     
     def __str__(self):
         return self.full_name

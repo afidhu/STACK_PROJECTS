@@ -38,6 +38,8 @@ import Addchapter from './component/teacher/addchapter';
 import CourseChapter from './component/teacher/courseChapter';
 import Logout from './component/user/logout';
 import StudentEnroll from './component/student_enroll';
+import Iindex from './component/teacher/Iindex';
+import SearchCourse from './component/searchCourse';
 
 function App() {
   return (
@@ -72,20 +74,25 @@ function App() {
 
             {/* tearcher */}
           <Route exact path='/teacher-logout/' element={<Teacherlogout/>}  ></Route>
+          <Route exact path='/dashboard/' element={<Iindex/>}  ></Route>
           <Route exact path='/teacher-login/' element={<TeacherLogin/>}  ></Route>
           <Route exact path='/teacher-register/' element={<TeacherRegister/>}  ></Route>
           <Route exact path='/teacher-mycourses/' element={<TeacherMyCourses/>}  ></Route>
-          <Route exact path='/teacher-profilesetting/' element={<TeacherProfileseting/>}  ></Route>
+          <Route exact path='/teacher-profile/' element={<TeacherProfileseting/>}  ></Route>
           <Route exact path='/teacher-recommened/' element={<TeacherRecommendedcourse/>}  ></Route>
           <Route exact path='/teacher-favoritecourse/' element={<TeacherFavorritecousrse/>}  ></Route>
           <Route exact path='/teacher-changepsw/' element={<TeacherChangepassword/>}  ></Route>
           <Route exact path='/teacher-addcourse/' element={<Addcourse/>}  ></Route>
-          <Route exact path='/teacher-myuser/' element={<Myuser/>}  ></Route>
+          <Route exact path='/teacher-myuser/:course_id' element={<Myuser/>}  ></Route>
           <Route exact path='/teacherdetail/:teacher_id/' element={<Teacherdetail/>}  ></Route>
           <Route exact path='/teacher-dashboard/' element={<Teacherdashboard/>}  ></Route>
 
           <Route exact path='/addchapter/:course_id/' element={<Addchapter/>}  ></Route>
           <Route exact path='/enroll_student/:course_id/' element={<StudentEnroll/>}  ></Route>
+
+
+          {/* SEARCH COURSE */}
+          <Route exact path='/search-course/:courseTitle/' element={<SearchCourse/>}  ></Route>
         </Routes>
       </BrowserRouter>
       

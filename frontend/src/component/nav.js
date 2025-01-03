@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Link, NavLink } from 'react-router-dom';
 
 const Nav = () => {
@@ -6,6 +6,17 @@ const Nav = () => {
     const teacherLoginStatus_is=localStorage.getItem('teacherLoginStatus')
     const studentLoginStatus_is=localStorage.getItem('studentLoginStatus')
 
+    const [searchData, setSearchData]=useState('')
+    const searchCourse=(e)=>{
+    e.preventDefault()
+      if(searchData ===""){
+        alert('please input require')
+      }
+        
+        else{
+            window.location.href='/search-course/'+searchData
+        }
+    }
     return (
         <div>
             <NavLink>
@@ -13,7 +24,7 @@ const Nav = () => {
 
                 <nav class="navbar navbar-expand-lg bg-primary">
                     <div class="container-fluid">
-                        <a class="navbar-brand" href="#">Navbar</a>
+                        <Link class="navbar-brand" href="#">Navbar</Link>
                         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                             <span class="navbar-toggler-icon"></span>
                         </button>
@@ -56,8 +67,8 @@ const Nav = () => {
                                 </li>
                             </ul>
                             <form class="d-flex" role="search">
-                                <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search" />
-                                <button class="btn btn-outline-success" type="submit">Search</button>
+                                <input class="form-control me-2"  value={searchData} onChange={(e)=>setSearchData(e.target.value)} type="search" placeholder="Search" aria-label="Search" />
+                                <button onClick={searchCourse} class="btn btn-outline-success" type="submit">Search</button>
                             </form>
                             <div className="mb-4 mx-2 text-white ">
                                 <li class="nav-item dropdown ">
@@ -88,8 +99,9 @@ const Nav = () => {
                                       <Link to='/teacher-login/' class="dropdown " >Login</Link> <br />
                                         <Link to='/teacher-register/' class="dropdown " >Register</Link><br />
                                         <Link to='/teacher-dashboard/' class="dropdown " >teacher-dash</Link>
+                                       
                                          </>}
-                                        
+                                         <Link to='/teacher-profile/' class="dropdown " >teacher-Profile</Link><br />
                                         <Link to='/teacher-logout/' class="dropdown " >Logout</Link>
 
                                     </ul>

@@ -1,7 +1,7 @@
 from django.conf import settings
 from django.urls import path
 
-from.views import TeacherViewList, CourseRatingView,TeacherDetail, CategoryViewList, AddCourseList,TeacherCourseList, ChapterLIstview, ChapterperCourseLIstview,AllCourseList,StudentViewRegisterList, CourseListView, StudentEnrollCourse,courseEnrollmentCourseLIstview, Student_login
+from.views import TeacherViewList, CourseRatingView,TeacherDetail,StudentEnrollCourseTo_teacher, CategoryViewList, AddCourseList,TeacherCourseList, ChapterLIstview, ChapterperCourseLIstview,AllCourseList,StudentViewRegisterList, CourseListView, StudentEnrollCourse,courseEnrollmentCourseLIstview, Student_login
 from.import views
 
 urlpatterns = [
@@ -13,8 +13,12 @@ urlpatterns = [
     path('chapterlist/', ChapterLIstview.as_view()),
     path('chapterpertcular/<int:course_id>/', ChapterperCourseLIstview.as_view()),
     path('allCourseList/', AllCourseList.as_view()),
+    path('searchCourse/<str:course_title>/', AllCourseList.as_view()),
     path('CourseListView/<int:pk>/', CourseListView.as_view()),
     path('courseEnrollmentCourseLIstview/<int:course_id>/', courseEnrollmentCourseLIstview.as_view()),
+    
+    path('studentEnrollCourseTo_teacher/<int:course_id>/', StudentEnrollCourseTo_teacher.as_view()),
+    path('studentEnrollCourseTo_teacher/', StudentEnrollCourseTo_teacher.as_view()),
     # path('techCourseView/<slug:techs>/', TechCourseView.as_view()),
     
     path('teachercourse/<int:teacher_id>/', TeacherCourseList.as_view()),

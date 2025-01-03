@@ -3,19 +3,25 @@ import Sidebar from './teachersidebar';
 import axios from 'axios'
 import { useParams } from 'react-router-dom';
 const Myuser = () => {
-const[userdata, setUserdata]=useState([])
+const[total_course, settotal_course]=useState()
+const[total_student, settotal_student]=useState('')
+const[studentEnroll, setstudentEnroll]=useState('')
 
-const{course_id} =useParams()
+const teacher_id=localStorage.getItem('teacherId');
+
+console.log(total_student)
     useEffect(()=>{
         axios
-        .get("http://127.0.0.1:8000/studentEnrollCourseTo_teacher/" +course_id)
+        .get("http://127.0.0.1:8000/teacher_detail/" +teacher_id)
         .then((resp)=>{
-            setUserdata(resp.data)
+            settotal_student(resp.data.total_student)
+            setstudentEnroll(resp.data.studentEnroll)
+            settotal_course(resp.data.studentEnroll)
         })
         .catch((err)=>{
             console.log("error at : "+err)
         })
-    })
+    }, [teacher_id])
 
     return (
         <div>
@@ -34,28 +40,22 @@ const{course_id} =useParams()
                             <table class="table">
                                 <thead>
                                     <tr>
-                                        <th scope="col">N</th>
-                                        <th scope="col">EMAIL</th>
-                                        <th scope="col">USERNAME</th>
-                                        <th scope="col">INTERREST</th>
+                                        <th scope="col">Total Course</th>
+                                        <th scope="col">Total Student</th>
+                                        <th scope="col">Total enroll</th>
+                                       
                                     </tr>
                                 </thead>
                                 <tbody>
-                                {
-                                    userdata.map((val, index)=>{
-                                        return (
-                                            <tr>
-                                        <th scope="row">{index+1}</th>
-                                        <td>{val.student.email}</td>
-                                        <td>{val.student.username}</td>
-                                        <td>{val.student.interest}</td>
-                                       
-                                    </tr>
-                                        )
-                                    })
-                                }
-                                   
-                      
+            =
+                                        <tr>
+                                      
+                                      <td>{total_course}</td>
+                                      <td>{total_student}</td>
+                                      <td>{total_student}</td>
+                                      <td>{setstudentEnroll}</td>
+                                     
+                                  </tr>
                                   
                                 </tbody>
                             </table>

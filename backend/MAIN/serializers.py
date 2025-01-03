@@ -1,12 +1,19 @@
 from rest_framework import serializers
 from.models import Student, Course, CourseCategory, Teacher, Addchapter,CourseRating ,StudentCourseEnrollment
 
+# class TeacherSerializer(serializers.ModelSerializer):
+#     class Meta:
+#         model=Teacher
+#         fields=["id","full_name","email", "password","qualification","phone","skills", "teacher_course"]
+#         depth=1
+        
+        
 class TeacherSerializer(serializers.ModelSerializer):
     class Meta:
         model=Teacher
-        fields=["id","full_name","email", "password","qualification","phone","skills", "teacher_course","teacher_skills"]
+        fields=["id","full_name","email", "password","qualification","phone","skills", "teacher_course","teacher_skills","total_course", "studentEnroll","total_student", "total_student"]
         depth=1
-        
+
 class StudentSerializer(serializers.ModelSerializer):
     class Meta:
         model=Student

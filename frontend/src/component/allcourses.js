@@ -16,7 +16,7 @@ const Allcourses = () => {
         .catch((err)=>{
             console.log("thehe is error at:"+err)
         })
-    })
+    },[])
 
     return (
         <div>

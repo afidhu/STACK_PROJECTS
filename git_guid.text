@@ -1,0 +1,4 @@
+1 git remote add origin https://github.com/afidhu/STACK_PROJECTS
+2.git add .
+3.git commit -m "Your commit message"
+4.git push origin main

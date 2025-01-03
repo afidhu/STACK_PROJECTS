@@ -13,6 +13,7 @@ class TeacherViewList(generics.ListCreateAPIView):
     queryset=Teacher.objects.all()
     serializer_class=TeacherSerializer
     
+
     
 class TeacherDetail(generics.RetrieveUpdateDestroyAPIView):
     queryset=Teacher.objects.all()
@@ -34,7 +35,17 @@ class AddCourseList(generics.ListCreateAPIView):
 class AllCourseList(generics.ListCreateAPIView):
     queryset =Course.objects.all()[:9]
     serializer_class =AllCourseSerializer
-
+    
+    # here search course by name
+    def get_queryset(self):
+        if 'course_title' in self.kwargs:
+            search =self.kwargs['course_title']
+            search_result=Course.objects.filter(title__icontains=search)
+            if search_result:
+                return search_result
+            return Course.objects.none()
+        return Course.objects.all()
+    
 
 
 
@@ -90,6 +101,25 @@ class StudentViewRegisterList(generics.ListCreateAPIView):
   
   
 # student enrollemenet
+class StudentEnrollCourseTo_teacher(generics.ListCreateAPIView):
+
+# I USE TWO URLS ONE HAVE <INT:cpurse_id> AND ANOTHER NDO NOT HAVE IT
+    serializer_class=StudentCourseEnrollmentSerilizer
+    def get_queryset(self):
+        
+        if 'course_id' in self.kwargs:
+            courseId=self.kwargs['course_id']
+            course=Course.objects.get(pk=courseId)
+            corseEnrolled=StudentCourseEnrollment.objects.filter(course=course)
+            if corseEnrolled is not None:
+                return corseEnrolled
+            else:
+                print('there is no data')
+                     
+        return StudentCourseEnrollment.objects.all()
+    
+    
+    
 class StudentEnrollCourse(generics.ListCreateAPIView):
     queryset=StudentCourseEnrollment.objects.all()
     serializer_class=StudentCourseEnrollmentSerilizer
@@ -133,6 +163,10 @@ class CourseRatingView(generics.ListCreateAPIView):
     #     return CourseRating.objects.filter(course=course)
   
     
+    
+
+    
+    
 # here full teacher login
 
 from django.views.decorators.csrf import csrf_exempt
@@ -164,5 +198,21 @@ def Student_login(request):
         studentData=None   
     if studentData:
         return JsonResponse({'bool':True, 'student_id':studentData.id, 'name':studentData.full_name})
+    else:
+        return JsonResponse({'bool':False})
+    
+    
+    # HERE CHANGE PASSWORD NB THEN IN REACT PAGE USE POST METHOD IN AXIOS NOT PUT IF YOU USE UPDATE HERE 
+@csrf_exempt
+def Student_changePassword(request, student_id):
+    password=request.POST['password']
+    
+    try:
+        resetpassword=Student.objects.get(pk=student_id)
+    except resetpassword.DoesNotExist:
+        resetpassword=None   
+    if resetpassword:
+        resetpassword=Student.objects.filter(pk=student_id).update(password=password)
+        return JsonResponse({'bool':True})
     else:
         return JsonResponse({'bool':False})
